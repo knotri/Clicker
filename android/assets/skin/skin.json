@@ -1,0 +1,21 @@
+{
+    "com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle": { 
+        
+        
+       leadboard: { up: leadboard-icon } , 
+       shop-icon: { up: shop-icon } , 
+       skin-icon: { up: skin-icon }
+    },
+    "com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle": { 
+        
+        
+       leadboard: { up: leadboard-icon , "font": font} , 
+       "shop-icon": { "up": "12" , "font": font} , 
+       skin-icon: { up: skin-icon , "font": font}
+    },
+    "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
+        "default": { "font": font}
+    }
+    
+} 
+

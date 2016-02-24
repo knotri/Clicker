@@ -1,0 +1,110 @@
+
+pack.png
+size: 2048,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+12
+  rotate: false
+  xy: 1003, 1046
+  size: 1000, 992
+  orig: 1000, 992
+  offset: 0, 0
+  index: -1
+1212
+  rotate: false
+  xy: 1420, 51
+  size: 457, 451
+  orig: 457, 451
+  offset: 0, 0
+  index: -1
+1222
+  rotate: false
+  xy: 2, 129
+  size: 914, 908
+  orig: 914, 908
+  offset: 0, 0
+  index: -1
+123456
+  rotate: false
+  xy: 2, 1039
+  size: 999, 999
+  orig: 999, 999
+  offset: 0, 0
+  index: -1
+leadboard-icon
+  rotate: false
+  xy: 2, 5
+  size: 127, 122
+  orig: 127, 122
+  offset: 0, 0
+  index: -1
+matrix
+  rotate: false
+  xy: 1003, 504
+  size: 960, 540
+  orig: 960, 540
+  offset: 0, 0
+  index: -1
+skin2
+  rotate: false
+  xy: 918, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+
+pack2.png
+size: 2048,2048
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+121
+  rotate: false
+  xy: 2, 564
+  size: 777, 777
+  orig: 777, 777
+  offset: 0, 0
+  index: -1
+1234567
+  rotate: false
+  xy: 943, 1190
+  size: 777, 777
+  orig: 777, 777
+  offset: 0, 0
+  index: -1
+YouTube-icon-full_color
+  rotate: false
+  xy: 564, 177
+  size: 379, 385
+  orig: 379, 385
+  offset: 0, 0
+  index: -1
+shop-icon
+  rotate: false
+  xy: 1283, 676
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+skin-icon
+  rotate: false
+  xy: 2, 1343
+  size: 939, 624
+  orig: 939, 624
+  offset: 0, 0
+  index: -1
+twitch
+  rotate: false
+  xy: 2, 2
+  size: 560, 560
+  orig: 560, 560
+  offset: 0, 0
+  index: -1
+xminecraft_block_minecraft-999px.png.pagespeed.ic.P8coOt16YY
+  rotate: false
+  xy: 781, 638
+  size: 500, 550
+  orig: 500, 550
+  offset: 0, 0
+  index: -1
