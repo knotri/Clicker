@@ -1,21 +1,55 @@
 package com.knotri.clicker.screen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.knotri.clicker.AbstractScreen;
 import com.knotri.clicker.ItemUpgrade;
 import com.knotri.clicker.MyGame;
 
 /**
- * Created by k on 23.02.16.
+ * Created by k on 26.02.16.
  */
-public class ShopScreen extends AbstractScreen implements InputProcessor {
+public class SkinScreen extends AbstractScreen implements InputProcessor{
+    static public class ItemSkin{
+        TextureRegion image;
+        String text;
+        int needV;
 
-    public ShopScreen(){
+
+
+        public ItemSkin(TextureRegion image, String text,int needV){
+            this.image = image;
+            this.text = text;
+            this.needV = needV;
+        }
+
+        public void applySkin(){
+            MyGame.mainButton = image;
+        }
+
+
+
+        public void draw(float y) {
+            float margin = MyGame.DESIGN_WIDTH * 0.05f;
+            float fillHeight = AbstractScreen.game.DESIGN_WIDTH * 0.2f;
+            AbstractScreen.batch.setColor(1,1,1,0.5f);
+            AbstractScreen.draw(AbstractScreen.game.blackTexture, 0, y, AbstractScreen.game.DESIGN_WIDTH, fillHeight);
+            AbstractScreen.batch.setColor(1,1,1,1);
+            AbstractScreen.draw(image, margin, y + margin, fillHeight - 2*margin, (fillHeight - 2*margin) * image.getRegionHeight() / image.getRegionWidth()  );
+
+            AbstractScreen.drawText(MyGame.smallFont, text, MyGame.DESIGN_WIDTH * 0.25f, y + fillHeight - margin);
+            AbstractScreen.drawText(MyGame.smallFont, "v: " + needV, MyGame.DESIGN_WIDTH * 0.25f,  y + fillHeight - margin * 2);
+
+//            AbstractScreen.drawText(MyGame.smallFont, "level: " + level, MyGame.DESIGN_WIDTH * 0.80f,  y + fillHeight - margin);
+//            AbstractScreen.drawText(MyGame.smallFont, "cps: " + cps, MyGame.DESIGN_WIDTH * 0.80f,  y + fillHeight - margin*2 );
+        }
+    }
+
+    public SkinScreen(){
         inputMultiplexer.addProcessor(this);
         stage.clear();
     }
@@ -33,8 +67,8 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
 
         float drawY = camera.viewportHeight - fillHeight - offsetY;
         heightAllItem = 0;
-        for(ItemUpgrade itemUpgrade : MyGame.itemUpgrades){
-            itemUpgrade.draw(drawY);
+        for(ItemSkin itemSkin : MyGame.itemSkins){
+            itemSkin.draw(drawY);
             drawY -= fillHeight * 1.3f;
             heightAllItem += fillHeight * 1.3f;
         }
@@ -48,7 +82,6 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
     public void hide(){
         inputMultiplexer.removeProcessor(this);
     }
-
 
 
 
@@ -83,11 +116,11 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
 
         float drawY = camera.viewportHeight - fillHeight - offsetY;
         heightAllItem = 0;
-        for(ItemUpgrade itemUpgrade : MyGame.itemUpgrades){
+        for(ItemSkin itemSkin : MyGame.itemSkins){
 
             heightAllItem += fillHeight * 1.3f;
             if( ans.y > drawY && ans.y < drawY + fillHeight){
-                itemUpgrade.levelUp();
+                itemSkin.applySkin();
             }
             drawY -= fillHeight * 1.3f;
         }
@@ -129,6 +162,4 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
     public boolean scrolled (int amount) {
         return false;
     }
-
-
 }

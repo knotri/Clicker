@@ -1,23 +1,70 @@
 package com.knotri.clicker.screen;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.knotri.clicker.AbstractScreen;
 import com.knotri.clicker.ItemUpgrade;
 import com.knotri.clicker.MyGame;
 
-/**
- * Created by k on 23.02.16.
- */
-public class ShopScreen extends AbstractScreen implements InputProcessor {
 
-    public ShopScreen(){
+/**
+ * Created by k on 25.02.16.
+ */
+public class TopScreen extends AbstractScreen implements InputProcessor{
+    static public class ItemRecord {
+        TextureRegion image;
+        String text;
+        int result;
+
+
+
+        public ItemRecord(TextureRegion image, String text,int result){
+            this.image = image;
+            this.text = text;
+            this.result = result;
+        }
+
+        public ItemRecord(String text,int result){
+            this.image = MyGame.atlas.findRegion("12");
+            this.text = text;
+            this.result = result;
+            if(this.text == null){ this.text = "без именни"; }
+        }
+
+        public void draw(float y) {
+            float margin = MyGame.DESIGN_WIDTH * 0.05f;
+            float fillHeight = AbstractScreen.game.DESIGN_WIDTH * 0.2f;
+            AbstractScreen.batch.setColor(1,1,1,0.5f);
+            AbstractScreen.draw(AbstractScreen.game.blackTexture, 0, y, AbstractScreen.game.DESIGN_WIDTH, fillHeight);
+            AbstractScreen.batch.setColor(1,1,1,1);
+            AbstractScreen.draw(image, margin, y + margin, fillHeight - 2*margin, (fillHeight - 2*margin) * image.getRegionHeight() / image.getRegionWidth()  );
+
+            AbstractScreen.drawText(MyGame.smallFont, text, MyGame.DESIGN_WIDTH * 0.25f, y + fillHeight - margin);
+            AbstractScreen.drawText(MyGame.smallFont, "v: " + result, MyGame.DESIGN_WIDTH * 0.25f,  y + fillHeight - margin * 2);
+
+//            AbstractScreen.drawText(MyGame.smallFont, "level: " + level, MyGame.DESIGN_WIDTH * 0.80f,  y + fillHeight - margin);
+//            AbstractScreen.drawText(MyGame.smallFont, "cps: " + cps, MyGame.DESIGN_WIDTH * 0.80f,  y + fillHeight - margin*2 );
+        }
+    }
+
+
+    public TopScreen(){
+        MyGame.itemRecords.clear();
+        MyGame.itemRecords.add(new ItemRecord(MyGame.atlas.findRegion("12"), "load...", 0));
         inputMultiplexer.addProcessor(this);
         stage.clear();
+
+        MyGame.itemRecords.clear();
+        String[] top = game.requestHandler.getTopRecord(MyGame.itemRecords).split(",");
+        for(String str : top){
+            MyGame.itemRecords.add(new ItemRecord(MyGame.atlas.findRegion("12"), str, 0));
+        }
+
+
     }
 
     float heightAllItem = 0;
@@ -33,8 +80,8 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
 
         float drawY = camera.viewportHeight - fillHeight - offsetY;
         heightAllItem = 0;
-        for(ItemUpgrade itemUpgrade : MyGame.itemUpgrades){
-            itemUpgrade.draw(drawY);
+        for(ItemRecord itemRecord : MyGame.itemRecords){
+            itemRecord.draw(drawY);
             drawY -= fillHeight * 1.3f;
             heightAllItem += fillHeight * 1.3f;
         }
@@ -83,14 +130,14 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
 
         float drawY = camera.viewportHeight - fillHeight - offsetY;
         heightAllItem = 0;
-        for(ItemUpgrade itemUpgrade : MyGame.itemUpgrades){
-
-            heightAllItem += fillHeight * 1.3f;
-            if( ans.y > drawY && ans.y < drawY + fillHeight){
-                itemUpgrade.levelUp();
-            }
-            drawY -= fillHeight * 1.3f;
-        }
+//        for(ItemUpgrade itemUpgrade : MyGame.itemUpgrades){
+//
+//            heightAllItem += fillHeight * 1.3f;
+//            if( ans.y > drawY && ans.y < drawY + fillHeight){
+//                itemUpgrade.levelUp();
+//            }
+//            drawY -= fillHeight * 1.3f;
+//        }
 
         return false;
     }
@@ -129,6 +176,4 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
     public boolean scrolled (int amount) {
         return false;
     }
-
-
 }

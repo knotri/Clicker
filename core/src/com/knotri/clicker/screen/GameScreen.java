@@ -16,7 +16,7 @@ import com.knotri.clicker.MyGame;
 public class GameScreen extends AbstractScreen  {
 
     final float SKIN_SIZE = 504;
-    TextureRegion skin2 = game.atlas.findRegion("skin2");
+    //TextureRegion skin2 = game.atlas.findRegion("skin2");
 
     public String getScoreText(){
 
@@ -70,7 +70,7 @@ public class GameScreen extends AbstractScreen  {
 
         float margin = (MyGame.DESIGN_WIDTH - SKIN_SIZE) / 2;
         float skinY = camera.viewportHeight / 2 - SKIN_SIZE/2;
-        draw(skin2, margin, skinY, SKIN_SIZE);
+        draw(MyGame.mainButton, margin, skinY, SKIN_SIZE);
 
         float rectangleHeight = MyGame.DESIGN_WIDTH * 0.25f;  // 25% - in psd
         batch.setColor(1,1,1,0.5f);
@@ -89,6 +89,13 @@ public class GameScreen extends AbstractScreen  {
     }
 
     @Override
+    public void hide(){
+        //inputMultiplexer.removeProcessor(this);
+        stage.clear();
+    }
+
+
+    @Override
     public void resize(int width, int height){
         super.resize(width, height);
 
@@ -104,9 +111,24 @@ public class GameScreen extends AbstractScreen  {
                 game.setScreen(new ShopScreen());
             }
         });
-        menuButtons[1] = createImageButton(skin.get("skin-icon", ImageButton.ImageButtonStyle.class), 0.3f);
-        menuButtons[2] = createImageButton(skin.get("leadboard", ImageButton.ImageButtonStyle.class), 0.3f);
 
+        menuButtons[1] = createImageButton(skin.get("skin-icon", ImageButton.ImageButtonStyle.class), 0.3f);
+        menuButtons[1].addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.log("ff", "ff");
+                game.setScreen(new SkinScreen());
+            }
+        });
+
+        menuButtons[2] = createImageButton(skin.get("leadboard", ImageButton.ImageButtonStyle.class), 0.3f);
+        menuButtons[2].addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.log("ff", "ff");
+                game.setScreen(new TopScreen());
+            }
+        });
         float calculetaAllWidth = 0;
         for(int i = 0; i < 3; i++){
             ImageButton imageButton = menuButtons[i];

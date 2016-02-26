@@ -14,14 +14,35 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import com.knotri.clicker.screen.GameScreen;
+import com.knotri.clicker.screen.SkinScreen;
+import com.knotri.clicker.screen.TopScreen;
 
 public class MyGame extends Game {
+
+	public interface RequestHandler {
+		//void confirm(ConfirmInterface confirmInterface);
+		//void loadAds();
+		//void showAds();
+		//void share();
+		//void shareRecord(int score);
+		void saveRecord(int score);
+		String getTopRecord(Array<TopScreen.ItemRecord> recordArray);
+	}
+
+	public RequestHandler requestHandler;
+	public MyGame(RequestHandler requestHandler){
+		this.requestHandler = requestHandler;
+	}
 
 	public static final float DESIGN_WIDTH = 720;
 	public static Texture blackTexture;
 
 
 	public static Array<ItemUpgrade> itemUpgrades = new Array<ItemUpgrade>();
+	public static Array<TopScreen.ItemRecord> itemRecords = new Array<TopScreen.ItemRecord>();
+	public static Array<SkinScreen.ItemSkin> itemSkins = new Array<SkinScreen.ItemSkin>();
+
+
 	public static BitmapFont bigFont;
 	public static BitmapFont middleFont;
 	public static BitmapFont smallFont;
@@ -35,7 +56,8 @@ public class MyGame extends Game {
 //	EndScreen endScreen;
 
 	public TextureRegion globalBackground;
-	public TextureAtlas atlas;
+	public static TextureRegion mainButton;
+	public static TextureAtlas atlas;
 	Music mp3Music;
 	int flag = 0;
 
@@ -75,6 +97,7 @@ public class MyGame extends Game {
 
 
 		globalBackground = atlas.findRegion("12");
+		mainButton = atlas.findRegion("12");
 
 		Pixmap b = new Pixmap(1,1, Pixmap.Format.RGBA8888);
 		b.setColor(Color.BLACK);
@@ -85,6 +108,10 @@ public class MyGame extends Game {
 		itemUpgrades.add(new ItemUpgrade(atlas.findRegion("12"), "Снимать больше видео 2", 220, 5));
 		itemUpgrades.add(new ItemUpgrade(atlas.findRegion("12"), "Снимать больше видео 3", 220, 5));
 		itemUpgrades.add(new ItemUpgrade(atlas.findRegion("12"), "Снимать больше видео 4", 220, 5));
+
+		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("121"), "1", 100));
+		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("1212"), "2", 100));
+		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("1222"), "3", 100));
 		AbstractScreen.game = this;
 
 
