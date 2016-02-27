@@ -69,8 +69,8 @@ public class SkinScreen extends AbstractScreen implements InputProcessor{
         heightAllItem = 0;
         for(ItemSkin itemSkin : MyGame.itemSkins){
             itemSkin.draw(drawY);
-            drawY -= fillHeight * 1.3f;
-            heightAllItem += fillHeight * 1.3f;
+            drawY -= fillHeight * 1.15f;
+            heightAllItem += fillHeight * 1.15f;
         }
         batch.end();
 
@@ -118,11 +118,11 @@ public class SkinScreen extends AbstractScreen implements InputProcessor{
         heightAllItem = 0;
         for(ItemSkin itemSkin : MyGame.itemSkins){
 
-            heightAllItem += fillHeight * 1.3f;
+            heightAllItem += fillHeight * 1.15f;
             if( ans.y > drawY && ans.y < drawY + fillHeight){
                 itemSkin.applySkin();
             }
-            drawY -= fillHeight * 1.3f;
+            drawY -= fillHeight * 1.15f;
         }
 
         return false;

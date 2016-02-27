@@ -16,6 +16,7 @@ import com.knotri.clicker.MyGame;
 public class GameScreen extends AbstractScreen  {
 
     final float SKIN_SIZE = 504;
+    float CENTER_MAIN_BUTTON;
     //TextureRegion skin2 = game.atlas.findRegion("skin2");
 
     public String getScoreText(){
@@ -31,18 +32,24 @@ public class GameScreen extends AbstractScreen  {
         return output + " VIEWS!";
     }
 
+    public InputAdapter inputAdapter = new InputAdapter() {
+        @Override
+        public boolean touchDown (int x, int y, int pointer, int button) {
+            if( touchCoord(x,y).dst(MyGame.DESIGN_WIDTH / 2, CENTER_MAIN_BUTTON) < SKIN_SIZE / 2){
+                MyGame.score += MyGame.cps;
+                skinSizeDinamic += 15;
+            }
+            return false;
+        }
+
+    };
+
+
     public GameScreen(){
         stage.clear();
-        inputMultiplexer.addProcessor(new InputAdapter() {
-            @Override
-            public boolean touchDown (int x, int y, int pointer, int button) {
-                if( touchCoord(x,y).dst(MyGame.DESIGN_WIDTH / 2, camera.viewportHeight / 2) < SKIN_SIZE / 2){
-                    MyGame.score += MyGame.cps;
-                }
-                return false;
-            }
+        inputMultiplexer.addProcessor(inputAdapter);
 
-        });
+
 
 
 
@@ -59,6 +66,8 @@ public class GameScreen extends AbstractScreen  {
         setProportionalCameraWidth(MyGame.DESIGN_WIDTH);
     }
 
+
+    float skinSizeDinamic = SKIN_SIZE;
     @Override
     public void render(float delta){
         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -67,10 +76,10 @@ public class GameScreen extends AbstractScreen  {
 
         drawBackground(game.globalBackground);
 
-
-        float margin = (MyGame.DESIGN_WIDTH - SKIN_SIZE) / 2;
-        float skinY = camera.viewportHeight / 2 - SKIN_SIZE/2;
-        draw(MyGame.mainButton, margin, skinY, SKIN_SIZE);
+        skinSizeDinamic -= (skinSizeDinamic - SKIN_SIZE) * 0.1f;
+        float margin = (MyGame.DESIGN_WIDTH - skinSizeDinamic) / 2;
+        float skinY = CENTER_MAIN_BUTTON - skinSizeDinamic/2;
+        draw(MyGame.mainButton, margin, skinY, skinSizeDinamic);
 
         float rectangleHeight = MyGame.DESIGN_WIDTH * 0.25f;  // 25% - in psd
         batch.setColor(1,1,1,0.5f);
@@ -91,6 +100,7 @@ public class GameScreen extends AbstractScreen  {
     @Override
     public void hide(){
         //inputMultiplexer.removeProcessor(this);
+        inputMultiplexer.removeProcessor(inputAdapter);
         stage.clear();
     }
 
@@ -141,11 +151,14 @@ public class GameScreen extends AbstractScreen  {
 
 
             imageButton.setSize( guiCamera.viewportWidth * aspectRatio[i] / calculetaAllWidth, guiCamera.viewportWidth / calculetaAllWidth);
-            imageButton.setPosition( offset, guiCamera.viewportHeight * 0.05f);
+            imageButton.setPosition( offset, guiCamera.viewportHeight * 0.15f);
 
             offset += guiCamera.viewportWidth * aspectRatio[i] / calculetaAllWidth;
             stage.addActor(imageButton);
         }
+
+
+        CENTER_MAIN_BUTTON = camera.viewportHeight * 0.6f;
 
 
         //Gdx.input.setInputProcessor(stage);

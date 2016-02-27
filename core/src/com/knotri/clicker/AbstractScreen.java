@@ -233,7 +233,7 @@ public abstract class AbstractScreen implements Screen { // VERSION 2.0;
         myResize();
     }
 
-    public Vector2 touchCoord(int x, int y){
+    public static Vector2 touchCoord(int x, int y){
         Vector3 worldCoordinates = new Vector3(x, y, 0);
         Vector3 ans = camera.unproject(worldCoordinates);
         return new Vector2(ans.x, ans.y);

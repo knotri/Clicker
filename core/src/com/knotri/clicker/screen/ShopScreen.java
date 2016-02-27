@@ -35,8 +35,8 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
         heightAllItem = 0;
         for(ItemUpgrade itemUpgrade : MyGame.itemUpgrades){
             itemUpgrade.draw(drawY);
-            drawY -= fillHeight * 1.3f;
-            heightAllItem += fillHeight * 1.3f;
+            drawY -= fillHeight * 1.15f;
+            heightAllItem += fillHeight * 1.15f;
         }
         batch.end();
 
@@ -85,11 +85,11 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
         heightAllItem = 0;
         for(ItemUpgrade itemUpgrade : MyGame.itemUpgrades){
 
-            heightAllItem += fillHeight * 1.3f;
+            heightAllItem += fillHeight * 1.15f;
             if( ans.y > drawY && ans.y < drawY + fillHeight){
                 itemUpgrade.levelUp();
             }
-            drawY -= fillHeight * 1.3f;
+            drawY -= fillHeight * 1.15f;
         }
 
         return false;

@@ -82,8 +82,8 @@ public class TopScreen extends AbstractScreen implements InputProcessor{
         heightAllItem = 0;
         for(ItemRecord itemRecord : MyGame.itemRecords){
             itemRecord.draw(drawY);
-            drawY -= fillHeight * 1.3f;
-            heightAllItem += fillHeight * 1.3f;
+            drawY -= fillHeight * 1.15f;
+            heightAllItem += fillHeight * 1.15f;
         }
         batch.end();
 
