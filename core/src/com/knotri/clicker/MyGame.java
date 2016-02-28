@@ -152,17 +152,24 @@ public class MyGame extends Game {
 	}
 
 	public void loadGame(){
-		MyGame.score = AbstractScreen.prefs.getInteger("score");
-		String itemUpgradesStr = AbstractScreen.prefs.getString("itemUpgrades");
-		Gdx.app.log("load Game", itemUpgradesStr);
-		String[] itemUpgradeStrArray = itemUpgradesStr.split(",");
-		for(int i = 0; i < itemUpgradeStrArray.length; i++){
-			if( i >= itemUpgradeStrArray.length) break;
-			itemUpgrades.get(i).level = Integer.parseInt(itemUpgradeStrArray[i]);
-			for(int j = 0; j < itemUpgrades.get(i).level; j++){ itemUpgrades.get(i).price *= 1.6; cps += itemUpgrades.get(i).cps; }
+		try {
+
+
+			MyGame.score = AbstractScreen.prefs.getInteger("score");
+			String itemUpgradesStr = AbstractScreen.prefs.getString("itemUpgrades");
+			Gdx.app.log("load Game", itemUpgradesStr);
+			String[] itemUpgradeStrArray = itemUpgradesStr.split(",");
+			for (int i = 0; i < itemUpgradeStrArray.length; i++) {
+				if (i >= itemUpgradeStrArray.length) break;
+				itemUpgrades.get(i).level = Integer.parseInt(itemUpgradeStrArray[i]);
+				for (int j = 0; j < itemUpgrades.get(i).level; j++) {
+					itemUpgrades.get(i).price *= 1.6;
+					cps += itemUpgrades.get(i).cps;
+				}
+			}
+		} catch (Exception e){
+			e.printStackTrace();
 		}
-		//AbstractScreen.prefs.putString("itemUpgrades", itemUpgradesStr);
-		//AbstractScreen.prefs.putInteger("score", score);
 	}
 
 
