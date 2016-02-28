@@ -59,11 +59,12 @@ public class TopScreen extends AbstractScreen implements InputProcessor{
         inputMultiplexer.addProcessor(this);
         stage.clear();
 
-        MyGame.itemRecords.clear();
-        String[] top = game.requestHandler.getTopRecord(MyGame.itemRecords).split(",");
-        for(String str : top){
-            MyGame.itemRecords.add(new ItemRecord(MyGame.atlas.findRegion("12"), str, 0));
-        }
+        //MyGame.itemRecords.clear();
+        game.requestHandler.getTopRecord(MyGame.itemRecords);
+        //String[] top = game.requestHandler.getTopRecord(MyGame.itemRecords).split(",");
+//        for(String str : top){
+//            MyGame.itemRecords.add(new ItemRecord(MyGame.atlas.findRegion("12"), str, 0));
+//        }
 
 
     }

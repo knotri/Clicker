@@ -53,7 +53,7 @@ public class AndroidLauncher extends AndroidApplication implements MyGame.Reques
 			String email = possibleEmails.get(0);
 			return email;
 		} else
-			return null;
+			return "nameless";
 	}
 
 	@Override
@@ -104,6 +104,7 @@ public class AndroidLauncher extends AndroidApplication implements MyGame.Reques
 			@Override
 			public void handleResponse( BackendlessCollection<Record> response )
 			{
+				recordArray.clear();
 				for( Record record : response.getCurrentPage()){
 					recordArray.add( new TopScreen.ItemRecord(record.name, record.result));
 				}

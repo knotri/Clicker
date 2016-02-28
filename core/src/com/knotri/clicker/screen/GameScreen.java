@@ -100,6 +100,8 @@ public class GameScreen extends AbstractScreen  {
     @Override
     public void hide(){
         //inputMultiplexer.removeProcessor(this);
+        game.saveGame();
+        game.requestHandler.saveRecord(game.score);
         inputMultiplexer.removeProcessor(inputAdapter);
         stage.clear();
     }

@@ -17,6 +17,7 @@ import com.knotri.clicker.screen.GameScreen;
 import com.knotri.clicker.screen.SkinScreen;
 import com.knotri.clicker.screen.TopScreen;
 
+
 public class MyGame extends Game {
 
 	public interface RequestHandler {
@@ -127,12 +128,39 @@ public class MyGame extends Game {
 		AbstractScreen.game = this;
 
 
-
+		loadGame();
 		gameScreen = new GameScreen();
 		setScreen(gameScreen);
 		AbstractScreen.inputMultiplexer.addProcessor(AbstractScreen.stage);
 		Gdx.input.setInputProcessor(AbstractScreen.inputMultiplexer);
 		Gdx.input.setCatchBackKey(true);
+	}
+
+
+	public void saveGame(){
+		String itemUpgradesStr = "";
+		for(int i = 0; i < itemUpgrades.size; i++){
+			itemUpgradesStr += itemUpgrades.get(i).level;
+			if(i != itemUpgrades.size - 1){
+				itemUpgradesStr += ",";
+			}
+		}
+		AbstractScreen.prefs.putString("itemUpgrades", itemUpgradesStr);
+		AbstractScreen.prefs.putInteger("score", score);
+		AbstractScreen.prefs.flush();
+	}
+
+	public void loadGame(){
+		MyGame.score = AbstractScreen.prefs.getInteger("score");
+		String itemUpgradesStr = AbstractScreen.prefs.getString("itemUpgrades");
+		String[] itemUpgradeStrArray = itemUpgradesStr.split(",");
+		for(int i = 0; i < itemUpgradeStrArray.length; i++){
+			if( i <= itemUpgradeStrArray.length) break;
+			itemUpgrades.get(i).level = Integer.parseInt(itemUpgradeStrArray[i]);
+			for(int j = 0; j < itemUpgrades.get(i).level; j++){ itemUpgrades.get(i).price *= 1.6; }
+		}
+		AbstractScreen.prefs.putString("itemUpgrades", itemUpgradesStr);
+		AbstractScreen.prefs.putInteger("score", score);
 	}
 
 
