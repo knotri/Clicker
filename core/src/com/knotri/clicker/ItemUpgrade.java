@@ -12,8 +12,8 @@ public class ItemUpgrade {
     TextureRegion image;
     String text;
     int level;
-    float price;
-    float cps;
+    int price;
+    int cps;
 
     public void levelUp(){
         if(MyGame.score >= price){
@@ -25,7 +25,7 @@ public class ItemUpgrade {
 
     }
 
-    public ItemUpgrade(TextureRegion image, String text, float price, float cps){
+    public ItemUpgrade(TextureRegion image, String text, int price, int cps){
         this.image = image;
         this.text = text;
         this.price = price;

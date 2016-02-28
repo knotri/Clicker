@@ -46,7 +46,7 @@ public class MyGame extends Game {
 	public static BitmapFont bigFont;
 	public static BitmapFont middleFont;
 	public static BitmapFont smallFont;
-	public static int cps = 1;
+	public static int cps = 10;
 	public static int score  = 0;
 
 
@@ -97,7 +97,7 @@ public class MyGame extends Game {
 
 
 		globalBackground = atlas.findRegion("12");
-		mainButton = atlas.findRegion("12");
+		mainButton = atlas.findRegion("YouTube-icon-full_color");
 
 		Pixmap b = new Pixmap(1,1, Pixmap.Format.RGBA8888);
 		b.setColor(Color.BLACK);
@@ -117,6 +117,13 @@ public class MyGame extends Game {
 		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("121"), "1", 100));
 		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("1212"), "2", 100));
 		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("1222"), "3", 100));
+
+		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("YouTube-icon-full_color"), "1", 100));
+		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("123456"), "2", 100));
+		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("1234567"), "3", 100));
+		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("skin2"), "3", 100));
+
+
 		AbstractScreen.game = this;
 
 

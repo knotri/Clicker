@@ -96,7 +96,7 @@ public class TopScreen extends AbstractScreen implements InputProcessor{
             heightAllItem += fillHeight * 1.15f;
         }
 
-        drawText(MyGame.bigFont, "TOP", camera.viewportWidth / 2, camera.viewportHeight * 0.92f - offsetY, Align.center);
+        drawText(MyGame.bigFont, "TOP 10", camera.viewportWidth / 2, camera.viewportHeight * 0.92f - offsetY, Align.center);
 
         batch.end();
 

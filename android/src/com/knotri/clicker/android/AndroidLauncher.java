@@ -88,10 +88,10 @@ public class AndroidLauncher extends AndroidApplication implements MyGame.Reques
 	public String getTopRecord(final Array<TopScreen.ItemRecord> recordArray){
 		String output = "";
 		BackendlessDataQuery dataQuery = new BackendlessDataQuery();
-		dataQuery.setPageSize(3);
+		dataQuery.setPageSize(10);
 		QueryOptions queryOptions = new QueryOptions();
 		queryOptions.addSortByOption("result DESC");
-		queryOptions.setPageSize(3);
+		queryOptions.setPageSize(10);
 		dataQuery.setQueryOptions(queryOptions);
 		//dataQuery.setWhereClause( whereClause );
 //		BackendlessCollection<Record> resultQuery = Backendless.Persistence.of( Record.class ).find( dataQuery );
