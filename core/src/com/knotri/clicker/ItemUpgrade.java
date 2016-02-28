@@ -17,6 +17,7 @@ public class ItemUpgrade {
 
     public void levelUp(){
         if(MyGame.score >= price){
+            MyGame.score -= price;
             level++;
             price *= 1.6f;
             MyGame.cps += cps;

@@ -109,6 +109,11 @@ public class MyGame extends Game {
 		itemUpgrades.add(new ItemUpgrade(atlas.findRegion("12"), "Снимать больше видео 3", 220, 5));
 		itemUpgrades.add(new ItemUpgrade(atlas.findRegion("12"), "Снимать больше видео 4", 220, 5));
 
+		itemUpgrades.add(new ItemUpgrade(atlas.findRegion("12"), "Снимать больше видео", 120, 3));
+		itemUpgrades.add(new ItemUpgrade(atlas.findRegion("12"), "Снимать больше видео 2", 220, 5));
+		itemUpgrades.add(new ItemUpgrade(atlas.findRegion("12"), "Снимать больше видео 3", 220, 5));
+		itemUpgrades.add(new ItemUpgrade(atlas.findRegion("12"), "Снимать больше видео 4", 220, 5));
+
 		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("121"), "1", 100));
 		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("1212"), "2", 100));
 		itemSkins.add(new SkinScreen.ItemSkin(atlas.findRegion("1222"), "3", 100));

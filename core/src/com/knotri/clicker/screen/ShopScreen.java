@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.knotri.clicker.AbstractScreen;
 import com.knotri.clicker.ItemUpgrade;
 import com.knotri.clicker.MyGame;
@@ -24,6 +25,14 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
 
     @Override
     public void render(float delta){
+
+        if(heightAllItem > camera.viewportHeight){
+            if(offsetY > 0){ offsetY -= 5; }
+            if(offsetY < -heightAllItem + camera.viewportHeight) { offsetY += 5; }
+        } else {
+            offsetY = 0;
+        }
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         drawBackground(game.globalBackground);
@@ -31,17 +40,22 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
 
         float fillHeight = AbstractScreen.game.DESIGN_WIDTH * 0.2f;
 
-        float drawY = camera.viewportHeight - fillHeight - offsetY;
-        heightAllItem = 0;
+        float drawY = camera.viewportHeight - fillHeight - offsetY - camera.viewportWidth * 0.2f;
+        heightAllItem = camera.viewportWidth * 0.2f;
         for(ItemUpgrade itemUpgrade : MyGame.itemUpgrades){
             itemUpgrade.draw(drawY);
             drawY -= fillHeight * 1.15f;
             heightAllItem += fillHeight * 1.15f;
         }
+
+        drawText(MyGame.bigFont, "SHOP", camera.viewportWidth / 2, camera.viewportHeight * 0.92f - offsetY, Align.center);
+
         batch.end();
 
-        if(offsetY > 0){ offsetY -= 5; }
-        if(offsetY < -heightAllItem + camera.viewportHeight) { offsetY += 5; }
+
+
+
+
     }
 
     @Override
@@ -77,26 +91,49 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
         Vector3 ans = camera.unproject(worldCoordinates);
 
         startPos = ans;
-        canScrooll = true;
+        //canScrooll = true;
 
-        float fillHeight = AbstractScreen.game.DESIGN_WIDTH * 0.2f;
-
-        float drawY = camera.viewportHeight - fillHeight - offsetY;
-        heightAllItem = 0;
-        for(ItemUpgrade itemUpgrade : MyGame.itemUpgrades){
-
-            heightAllItem += fillHeight * 1.15f;
-            if( ans.y > drawY && ans.y < drawY + fillHeight){
-                itemUpgrade.levelUp();
-            }
-            drawY -= fillHeight * 1.15f;
-        }
+//        float fillHeight = AbstractScreen.game.DESIGN_WIDTH * 0.2f;
+//
+//        float drawY = camera.viewportHeight - fillHeight - offsetY - camera.viewportWidth * 0.2f;
+//        heightAllItem = camera.viewportWidth * 0.2f;
+//        for(ItemUpgrade itemUpgrade : MyGame.itemUpgrades){
+//
+//            heightAllItem += fillHeight * 1.15f;
+//            if( ans.y > drawY && ans.y < drawY + fillHeight){
+//                itemUpgrade.levelUp();
+//            }
+//            drawY -= fillHeight * 1.15f;
+//        }
 
         return false;
     }
 
     public boolean touchUp (int x, int y, int pointer, int button) {
+        if(!canScrooll) {
+            Vector3 worldCoordinates = new Vector3(x, y, 0);
+            Vector3 ans = camera.unproject(worldCoordinates);
+
+            startPos = ans;
+            //canScrooll = true;
+
+            float fillHeight = AbstractScreen.game.DESIGN_WIDTH * 0.2f;
+
+            float drawY = camera.viewportHeight - fillHeight - offsetY - camera.viewportWidth * 0.2f;
+            heightAllItem = camera.viewportWidth * 0.2f;
+            for (ItemUpgrade itemUpgrade : MyGame.itemUpgrades) {
+
+                heightAllItem += fillHeight * 1.15f;
+                if (ans.y > drawY && ans.y < drawY + fillHeight) {
+                    itemUpgrade.levelUp();
+                }
+                drawY -= fillHeight * 1.15f;
+            }
+        }
+
         canScrooll = false;
+
+
 
         return false;
     }
@@ -106,7 +143,7 @@ public class ShopScreen extends AbstractScreen implements InputProcessor {
         Vector3 worldCoordinates = new Vector3(x, y, 0);
         Vector3 ans = camera.unproject(worldCoordinates);
 
-        if( Math.abs(startPos.y - ans.y) > 10){
+        if( Math.abs(startPos.y - ans.y) > 20){
             canScrooll = true;
         }
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.knotri.clicker.AbstractScreen;
 import com.knotri.clicker.ItemUpgrade;
 import com.knotri.clicker.MyGame;
@@ -71,6 +72,15 @@ public class TopScreen extends AbstractScreen implements InputProcessor{
 
     @Override
     public void render(float delta){
+
+        if(heightAllItem > camera.viewportHeight){
+            if(offsetY > 0){ offsetY -= 5; }
+            if(offsetY < -heightAllItem + camera.viewportHeight) { offsetY += 5; }
+        } else {
+            offsetY = 0;
+        }
+
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         drawBackground(game.globalBackground);
@@ -78,17 +88,18 @@ public class TopScreen extends AbstractScreen implements InputProcessor{
 
         float fillHeight = AbstractScreen.game.DESIGN_WIDTH * 0.2f;
 
-        float drawY = camera.viewportHeight - fillHeight - offsetY;
-        heightAllItem = 0;
+        float drawY = camera.viewportHeight - fillHeight - offsetY - camera.viewportWidth * 0.2f;
+        heightAllItem = camera.viewportWidth * 0.2f;
         for(ItemRecord itemRecord : MyGame.itemRecords){
             itemRecord.draw(drawY);
             drawY -= fillHeight * 1.15f;
             heightAllItem += fillHeight * 1.15f;
         }
+
+        drawText(MyGame.bigFont, "TOP", camera.viewportWidth / 2, camera.viewportHeight * 0.92f - offsetY, Align.center);
+
         batch.end();
 
-        if(offsetY > 0){ offsetY -= 5; }
-        if(offsetY < -heightAllItem + camera.viewportHeight) { offsetY += 5; }
     }
 
     @Override
