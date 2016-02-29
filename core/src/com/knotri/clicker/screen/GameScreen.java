@@ -108,6 +108,12 @@ public class GameScreen extends AbstractScreen  {
 
 
     @Override
+    public void pause() {
+        game.saveGame();
+    }
+
+
+    @Override
     public void resize(int width, int height){
         super.resize(width, height);
 

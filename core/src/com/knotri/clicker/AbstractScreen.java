@@ -33,7 +33,7 @@ public abstract class AbstractScreen implements Screen { // VERSION 2.0;
 
     public static SpriteBatch batch = new SpriteBatch();
     public static MyGame game;
-    public static Preferences prefs = Gdx.app.getPreferences("ClickerYoutube");
+    public static Preferences prefs = Gdx.app.getPreferences("ClickerYoutube12");
     public static Stage stage = new Stage();
     public static Skin skin;
     public static InputMultiplexer inputMultiplexer = new InputMultiplexer();
